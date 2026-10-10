@@ -1,0 +1,12 @@
+flowchart LR
+  user["Browser"]
+  cf["CloudFront distribution<br/>HTTPS, default certificate"]
+  oac["Origin Access Control<br/>SigV4, signing always"]
+  bucket["S3 bucket (private)<br/>Block Public Access: all on<br/>Bucket owner enforced<br/>SSE-S3"]
+  policy["Bucket policy<br/>Allow cloudfront.amazonaws.com s3:GetObject<br/>only if AWS:SourceArn = this distribution"]
+
+  user -- "GET / (200)" --> cf
+  cf -- "signed request" --> oac
+  oac --> bucket
+  policy -. "guards" .-> bucket
+  user -. "direct GET to bucket regional domain (403)" .-> bucket
