@@ -2,6 +2,8 @@
 
 A static site whose S3 bucket is fully private. Only one CloudFront distribution can read it, through **Origin Access Control** (OAC, not the legacy OAI).
 
+**Status:** validated offline (`tofu validate`) and reviewed. Not yet run against a live AWS account; this line changes when it has been.
+
 ## What it builds (OpenTofu)
 
 * S3 bucket: Block Public Access all four settings on, Object Ownership `BucketOwnerEnforced` (ACLs disabled), default encryption SSE-S3.
